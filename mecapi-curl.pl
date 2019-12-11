@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+# MECAPI CLI (perl + curl)
 use strict;
 use warnings;
 use Getopt::Long;
