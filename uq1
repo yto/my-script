@@ -3,13 +3,13 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $col_1 = 0;
-GetOptions("1=s" => \$col_1);
+my $idx = 0;
+GetOptions("1=s" => \$idx);
 
 my %seen;
 while (<>) {
     chomp;
     my @c = split(/\t/, $_);
-    next if $seen{$c[$col_1]||""}++;
+    next if $seen{$c[$idx]||""}++;
     print $_."\n";
 }
