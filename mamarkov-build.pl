@@ -24,7 +24,7 @@ sub yapima2 {
     use LWP::UserAgent;
     use JSON;
     my ($sent) = @_;
-    my $appid = "THISISAPEN"; # 自分で取得した AppID を使いましょう
+    my $appid = "gUxspU.xg66pvU6W5OJMz0vH10FYB.FT4sWcQomZrtmPD6sG.14VlAuMdCGoBuIeMyOpRtlJBlc-"; # 自分で取得した AppID を使いましょう
     my $url = "https://jlp.yahooapis.jp/MAService/V2/parse";
     my $params = {
 	"id" => "12345678",
