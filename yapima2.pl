@@ -7,7 +7,7 @@ use utf8;
 use open ':utf8';
 binmode STDIN, ":utf8";
 
-my $appid = "THISISAPEN"; # 自分で取得した AppId を使いましょう
+my $appid = "THISISAPEN"; # 自分で取得した AppID を使いましょう
 my $url = "https://jlp.yahooapis.jp/MAService/V2/parse";
 my $params = {
   "jsonrpc" => "2.0",
@@ -24,8 +24,8 @@ while (<>) {
     $params->{params}{q} = $_;
     my $response = $ua->post($url, content => JSON::encode_json($params));
     if ($response->is_success) {
-	print $response->content."\n";
+        print $response->content."\n";
     } else {
-	die $response->status_line;
+        die $response->status_line;
     }
 }
