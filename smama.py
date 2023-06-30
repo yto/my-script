@@ -1,4 +1,3 @@
-
 ### 形態素解析WebAPIで形態素解析を行う部分
 import json
 from urllib import request
@@ -31,20 +30,21 @@ dic = {
 }
 print('入力文:', sentence)
 
-### 文を形態素に分割
+### (M1) 文を形態素に分割
 response = ma(sentence)
 obj = json.loads(response)
 tokens = [x[0] for x in obj['result']['tokens']]
 print('形態素:', tokens)
 
-### 形態素区切り位置を保存
+### (M2) 形態素区切り位置を保存
 kugiri_positions = set(sum(len(token) for token in tokens[:i])
                        for i in range(0, len(tokens) + 1))
 print('区切り位置:', kugiri_positions, '\n')
 
-### 辞書にマッチさせる
+### (M3) 辞書にマッチさせる
 for i in kugiri_positions:
     for entry in dic.keys():
         to = i + len(entry)
         if (to in kugiri_positions) & (sentence[i:].startswith(entry)):
           print("MATCH!", i, to, entry, dic[entry])
+
