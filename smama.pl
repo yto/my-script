@@ -22,7 +22,7 @@ while (my $sentence = <>) {
     print "入力文: $sentence\n";
 
     ### (M1) 文を形態素に分割
-    my $tokens = wakati($sentence);
+    my $tokens = sentence_to_tokens($sentence);
     print "形態素: ".join("", map {"[$_]"} @$tokens)."\n";
 
     ### (M2) 形態素区切り位置を保存
@@ -42,9 +42,9 @@ while (my $sentence = <>) {
 }
 
 ### 形態素解析WebAPIで文を形態素に分割する
-sub wakati {
-    use LWP::UserAgent;
-    use JSON;
+use LWP::UserAgent;
+use JSON;
+sub sentence_to_tokens {
     my ($query) = @_;
     my $appid = "THISISAPEN"; # 自分で取得した AppID を使いましょう
     my $ua = LWP::UserAgent->new;
