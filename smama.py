@@ -21,15 +21,30 @@ def sentence_to_tokens(query):
     return [x[0] for x in obj['result']['tokens']]
 
 ### 入力文とマッチさせる辞書
-sentence = '今日は良い天気です。エロいピエロです。'
+sentence = 'ピエトロ氏、ドレッシングはピエロ事件。エロサイト'
 dic = {
-    '今': 'ima',
-    '今日': 'kyou',
-    '良い天':	'yoiten',
-    '良い天気':	'yoitenki',
-    'エロ':	'ero'
+    'エロ': 'ero',
+    'シング': 'sing',
+    'ピエトロ': 'pietro',
+    '良い天気': 'yoitenki',
+    '事件': 'jiken',
 }
 print('入力文:', sentence)
+
+### 各エントリが一箇所でもマッチしてればOK (マッチ位置や複数マッチは非対応)
+# for entry in dic.keys():
+#    if entry in sentence:
+#        print("MATCH!", entry, dic[entry])
+
+### (C1) 正規表現でマッチさせる
+import re
+#pattern = '|'.join(map(lambda x: re.escape(x), dic.keys()))
+pattern = '|'.join(map(lambda x: re.escape(x),
+                       sorted(dic.keys(), key=len, reverse=True)))
+
+print(pattern)
+for m in re.finditer(pattern, sentence):
+    print("MATCH!", m.span(), m.string[m.start():m.end()])
 
 ### (M1) 文を形態素に分割
 tokens = sentence_to_tokens(sentence)
@@ -46,5 +61,5 @@ for current_position in kugiri_positions:
         end_position = current_position + len(entry)
         if (end_position in kugiri_positions) & \
            (sentence[current_position:].startswith(entry)):
-            print("MATCH!", current_position, end_position, entry, dic[entry])
+            print("MATCH!", (current_position, end_position), entry, dic[entry])
 
